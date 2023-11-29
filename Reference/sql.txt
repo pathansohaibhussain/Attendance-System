@@ -1,0 +1,70 @@
+mysql> CREATE DATABASE attendance_db;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> USE attendance_db;
+Database changed
+mysql>
+mysql> CREATE TABLE students (
+    ->     student_id INT PRIMARY KEY,
+    ->     student_name VARCHAR(255) NOT NULL
+    -> );
+Query OK, 0 rows affected (0.05 sec)
+
+mysql>
+mysql> CREATE TABLE attendance (
+    ->     attendance_id INT AUTO_INCREMENT PRIMARY KEY,
+    ->     student_id INT,
+    ->     date DATE,
+    ->     present BOOLEAN,
+    ->     FOREIGN KEY (student_id) REFERENCES students(student_id)
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> -- Inserting student records
+mysql> INSERT INTO students (student_id, student_name) VALUES
+    -> (1, 'John Doe'),
+    -> (2, 'Jane Smith'),
+    -> (3, 'Alice Johnson'),
+    -> (4, 'Bob Anderson'),
+    -> (5, 'Eva Davis');
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> -- Displaying the inserted student records
+mysql> SELECT * FROM students;
++------------+---------------+
+| student_id | student_name  |
++------------+---------------+
+|          1 | John Doe      |
+|          2 | Jane Smith    |
+|          3 | Alice Johnson |
+|          4 | Bob Anderson  |
+|          5 | Eva Davis     |
++------------+---------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT user(), current_user();
++----------------+----------------+
+| user()         | current_user() |
++----------------+----------------+
+| root@localhost | root@localhost |
++----------------+----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM attendance;
++---------------+------------+------------+---------+
+| attendance_id | student_id | date       | present |
++---------------+------------+------------+---------+
+|             1 |          1 | 2023-11-29 |       1 |
++---------------+------------+------------+---------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM attendance;
++---------------+------------+------------+---------+
+| attendance_id | student_id | date       | present |
++---------------+------------+------------+---------+
+|             1 |          1 | 2023-11-29 |       1 |
+|             2 |          2 | 2023-11-29 |       0 |
++---------------+------------+------------+---------+
+2 rows in set (0.00 sec)
